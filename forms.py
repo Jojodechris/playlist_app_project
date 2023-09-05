@@ -1,10 +1,12 @@
+# forms.py
+
 """Forms for playlist app."""
 
 from wtforms import StringField,SelectField
 from flask_wtf import FlaskForm
 from wtforms.validators import InputRequired
 
-# form.py
+
 class PlaylistForm(FlaskForm):
 
     """Form for adding playlists."""
@@ -21,8 +23,8 @@ class SongForm(FlaskForm):
 
     # Add the necessary code to use this form
 
-def coerce_int(x):
-    return x[0]
+# def coerce_int(x):
+#     return x[0]
 
 # DO NOT MODIFY THIS FORM - EVERYTHING YOU NEED IS HERE
 class NewSongForPlaylistForm(FlaskForm):

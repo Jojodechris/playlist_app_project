@@ -1,3 +1,5 @@
+# app.py
+
 from flask import Flask,request,redirect, render_template
 # from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Playlist, Song,PlaylistSong
@@ -87,7 +89,9 @@ def show_all_songs():
 @app.route("/songs/<int:song_id>")
 def show_song(song_id):
     """return a specific song"""
+    # songs = Song.query.all()
     song = Song.query.get_or_404(song_id)
+
     return render_template('song.html',song=song)
 
 
@@ -114,11 +118,11 @@ def add_song():
 
     # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
 
-# app.py
 
 @app.route("/playlists/<int:playlist_id>/add-song", methods=["GET", "POST"])
 def add_song_to_playlist(playlist_id):
     """Add a playlist and redirect to list."""
+    
 
     # BONUS - ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
 
@@ -129,11 +133,12 @@ def add_song_to_playlist(playlist_id):
 
     # # Restrict form to songs not already on this playlist
 
-    curr_on_playlist = [s.id for s in playlist.songs]
+    curr_on_playlist = [s.id for s in playlist.song]
     form.song.choices =(db.session.query(Song.id, Song.title)
                       .filter(Song.id.notin_(curr_on_playlist))
                       .all())
-    if form.validate_on_submit(): 
+    if form.validate_on_submit():
+            playlist_id = int(playlist_id) 
             playlist_song = PlaylistSong(song_id=form.song.data,playlist_id=playlist_id)
             db.session.add(playlist_song)
             db.session.commit()

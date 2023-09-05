@@ -1,10 +1,11 @@
+# models.py
+
 """Models for Playlist app."""
 
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-# models.py
 class Playlist(db.Model):
     """Playlist."""
     __tablename__ = 'my-playlist'
@@ -13,7 +14,7 @@ class Playlist(db.Model):
     description=db.Column(db.Text, nullable=False)
     # song_id=db.Column(db.Integer, db.ForeignKey('my-song.id'))
 
-    songs = db.relationship('Song', primaryjoin='Playlist.id == foreign(Song.id)')
+    song = db.relationship('Song', primaryjoin='Playlist.id == foreign(Song.id)')
 
     # ADD THE NECESSARY CODE HERE
 
@@ -25,6 +26,11 @@ class Song(db.Model):
     title=db.Column(db.Text, nullable=False)
     artist=db.Column(db.Text, nullable=False)
     # playlist_id=db.Column(db.Integer, db.ForeignKey('my-playlist.id'))
+    playlist = db.relationship('Playlist', primaryjoin='Song.id == foreign(Playlist.id)')
+
+    # Define the relationship to playlists
+    # playlists = db.relationship('Playlist', secondary='playlist_song', back_populates='songs')
+
 
  
 

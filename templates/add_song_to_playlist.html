@@ -1,4 +1,4 @@
-
+<!-- add_song_to_playlist.html -->
 {% extends 'base.html' %}
 
 {% block content %}
@@ -9,7 +9,11 @@
     {{ form.hidden_tag() }}
     <div class="form-group">
         <label for="{{ form.song.id }}">{{ form.song.label }}</label>
-        {{form.song}}
+       <select name="song">
+        {% for id, title in form.song.choices %}
+        <option value="{{ id }}">{{ title }}</option>
+        {% endfor %}
+        </select>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
