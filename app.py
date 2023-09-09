@@ -138,8 +138,8 @@ def add_song_to_playlist(playlist_id):
                       .filter(Song.id.notin_(curr_on_playlist))
                       .all())
     if form.validate_on_submit():
-            playlist_id = int(playlist_id) 
-            playlist_song = PlaylistSong(song_id=form.song.data,playlist_id=playlist_id)
+            playlist_id= int(playlist_id) 
+            playlist_song = PlaylistSong(song_id=form.song.data,playlist_id=int(playlist_id))
             db.session.add(playlist_song)
             db.session.commit()
 
@@ -147,7 +147,10 @@ def add_song_to_playlist(playlist_id):
           # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
 
             return redirect(f"/playlists/{playlist_id}")
+    import pdb
+    pdb.set_trace()
 
     return render_template("add_song_to_playlist.html",
                              playlist=playlist,
                              form=form)
+
